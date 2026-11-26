@@ -8,8 +8,8 @@ Findings from running `rcm_benchmarking.py` against the seeded dataset (15 provi
 | KPI                     | Result   | Target   | Status          |
 |--------------------------|----------|----------|------------------|
 | Avg. Days in AR            | 44.4 days | < 40 days | ⚠️ Above target   |
-| Denial Rate                  | 12.5%    | < 10%    | ⚠️ Above target   |
-| Clean Claim Rate               | 69.8%    | > 90%    | ⚠️ Below target   |
+| Denial Rate                  | 12.7%    | < 10%    | ⚠️ Above target   |
+| Clean Claim Rate               | 70.7%    | > 90%    | ⚠️ Below target   |
 | Net Collection Rate               | 95.1%    | > 95%    | ✅ On target       |
 | Avg. Charge Lag                     | 5.4 days | < 5 days | ⚠️ Slightly above |
 
@@ -27,14 +27,14 @@ Commercial payers are the only group inside the 40-day target — Medicare, Medi
 all run well past it, which is the single biggest driver of the overall 44.4-day average.
 
 ## 2. Denial Rate by Payer Type
-Denial rate follows the same pattern:
+Denial rate (denied ÷ adjudicated claims) follows the same pattern:
 
 | Payer Type  | Denial Rate |
 |-------------|-------------|
-| Self-Pay    | 18.5%       |
-| Medicaid    | 15.8%       |
-| Medicare    | 13.6%       |
-| Commercial  | 9.8%        |
+| Self-Pay    | 19.1%       |
+| Medicaid    | 16.1%       |
+| Medicare    | 13.7%       |
+| Commercial  | 9.9%        |
 
 Commercial is the only segment under the 10% target.
 
@@ -43,9 +43,9 @@ The top five denial codes are fairly evenly spread rather than dominated by one 
 
 1. **PR-1** — Deductible amount (27 occurrences, ~$30.7K billed impact)
 2. **CO-97** — Benefit included in another service already adjudicated (26 occurrences, ~$30K)
-3. **CO-16** — Claim lacks information needed for adjudication (24 occurrences, ~$28.5K)
-4. **CO-11** — Diagnosis inconsistent with procedure (24 occurrences, ~$31.5K)
-5. **CO-50** — Non-covered service, not medically necessary (18 occurrences, ~$14.9K)
+3. **CO-11** — Diagnosis inconsistent with procedure (24 occurrences, ~$31.5K)
+4. **CO-16** — Claim lacks information needed for adjudication (24 occurrences, ~$28.5K)
+5. **CO-29** — Time limit for filing expired (18 occurrences, ~$18.8K)
 
 CO-16 (missing information) and CO-11 (coding mismatch) are both front-end/coding issues that
 are typically preventable with better claim scrubbing before submission.
@@ -55,8 +55,7 @@ are typically preventable with better claim scrubbing before submission.
 - **Total collected:** ~$772K (overall collected/billed ratio: 61.3% — note this is lower than
   the Net Collection Rate above because it includes denied/pending claims with $0 collected,
   while Net Collection Rate is calculated only on paid claims against their allowed amount)
-- **Net Collection Rate (paid claims only): 95.1%** — meaning once a claim is actually paid,
-  Commure-style operations are collecting nearly the full allowed amount
+- **Net Collection Rate (paid claims only): 95.1%** — meaning once a claim is actually paid, the operation is collecting nearly the full allowed amount
 
 ## 5. Provider Variation
 Collections varied meaningfully across providers — the top provider collected roughly 3x more
